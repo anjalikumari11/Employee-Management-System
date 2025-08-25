@@ -1,0 +1,12 @@
+.sidebar-item {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  background: #2d2d44;
+  color: #00d4ff !important;
+  transform: translateX(5px);
+}
