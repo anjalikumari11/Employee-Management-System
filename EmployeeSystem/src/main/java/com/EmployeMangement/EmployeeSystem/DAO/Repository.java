@@ -4,6 +4,6 @@ import com.EmployeMangement.EmployeeSystem.Service.EmployeeService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 //@org.springframework.stereotype.Repository
-public interface Repository extends JpaRepository<EmployeeEntity,Long> {
+public interface Repository extends JpaRepository<User,Long> {
 
 }

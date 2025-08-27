@@ -8,6 +8,7 @@ function Sidebar() {
   const navigate = useNavigate();
   const {signOut } = useUserStorage();
   const [userRoleFromDB, setUserRoleFromDB] = useState("");
+  
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -22,9 +23,7 @@ function Sidebar() {
 
     }
     
-  }, [user]);
-  console.log(user);
-  
+  }, [user]);  
 
   const handleLogout = () => {
     signOut();
@@ -47,7 +46,7 @@ function Sidebar() {
           <div style={{ fontSize: "12px", marginTop: "4px" }}>
             {user?.userRole}
           </div>
-          <FontAwesomeIcon icon={faTachometerAlt} className="me-2" />
+          <FontAwesomeIcon icon={faTachometerAlt} className="me-2"/>
           Dashboard
         </span>
       </div>

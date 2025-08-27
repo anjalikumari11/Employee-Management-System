@@ -1,26 +1,12 @@
-package com.EmployeMangement.EmployeeSystem.DAO;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "Employee_tb")
-public class EmployeeEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-    private String phone;
-    private String email;
-    private String department;
+//package com.EmployeMangement.EmployeeSystem.DAO;
 //
-//    private Long employeeId;
-}
+//import jakarta.persistence.*;
+//import lombok.*;
+//
+//
+//@Setter
+//@Getter
+//@NoArgsConstructor
+//@AllArgsConstructor
+////public class EmployeeEntity extends User{
+//}

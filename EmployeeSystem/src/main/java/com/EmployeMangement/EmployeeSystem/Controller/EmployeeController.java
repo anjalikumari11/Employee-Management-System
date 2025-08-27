@@ -1,6 +1,7 @@
 package com.EmployeMangement.EmployeeSystem.Controller;
 
-import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
+//import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
+import com.EmployeMangement.EmployeeSystem.DAO.User;
 import com.EmployeMangement.EmployeeSystem.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +16,17 @@ public class EmployeeController {
 
 
     @GetMapping("employees")
-    public List<EmployeeEntity> getAllEmployees() {
+    public List<User> getAllEmployees() {
         return employeeService.readEmployees();
     }
 
     @GetMapping("employees/{id}")
-    public EmployeeEntity getEmployeeById(@PathVariable Long id){
+    public User getEmployeeById(@PathVariable Long id){
         return employeeService.getEmployeeById(id);
     }
 
     @PostMapping("employees")
-    public String createEmployee(@RequestBody EmployeeEntity employee) {
+    public String createEmployee(@RequestBody User employee) {
         // employees.add(employee);
         return employeeService.createEmployee(employee);
     }
@@ -34,7 +35,7 @@ public class EmployeeController {
        return employeeService.deleteEmployee(id);
     }
     @PutMapping("employees/{id}")
-    public String updateEmp(@PathVariable Long id, @RequestBody EmployeeEntity emp){
+    public String updateEmp(@PathVariable Long id, @RequestBody User emp){
         return employeeService.updateEmployee(id,emp);
     }
 

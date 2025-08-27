@@ -14,16 +14,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private String name;
     private String email;
     private String password;
+    private String phone;
     private UserRole userRole;
+    private String department;
 
     public UserDTO getDto(){
         UserDTO dto = new UserDTO();
-        dto.setUserId(userId);
+        dto.setUserId(id);
         dto.setName(name);
         dto.setEmail(email);
         dto.setUserRole(userRole);

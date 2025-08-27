@@ -18,15 +18,13 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDate date;
     private boolean present;
-
     @ManyToOne
     @JoinColumn(
             name = "employee_id",
             referencedColumnName = "id",
             nullable = false
     )
-    private EmployeeEntity employee;
+    private User employee;
 }

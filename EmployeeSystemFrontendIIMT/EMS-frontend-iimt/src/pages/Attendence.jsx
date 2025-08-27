@@ -8,7 +8,7 @@ function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [markedRecords, setMarkedRecords] = useState([]);
   const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0] // default = today
+    new Date().toISOString().split("T")[0]
   );
 
   useEffect(() => {
@@ -68,7 +68,7 @@ function Attendance() {
 
     if (successCount > 0) {
       toast.success(`✅ Attendance marked for ${successCount} employees`);
-      loadMarkedAttendance(selectedDate); // refresh
+      loadMarkedAttendance(selectedDate); 
     }
     if (failCount > 0) toast.error(`❌ Failed for ${failCount} employees`);
   };
@@ -77,7 +77,6 @@ function Attendance() {
     <Dashboard>
       <div className="container p-4">
         <h2 className="mb-4 text-primary">➡️Mark Attendance</h2>
-
         <div className="mb-3">
           <label className="form-label fw-bold">Select Date:</label>
           <input

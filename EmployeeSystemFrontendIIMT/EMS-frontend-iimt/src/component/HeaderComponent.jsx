@@ -14,7 +14,7 @@ function HeaderComponent() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-3" >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-3"z >
       <div className="container-fluid">
         <a className="navbar-brand fw-bold text-info" href="#">
           Employee<span className="text-light">MS</span>

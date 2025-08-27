@@ -45,7 +45,6 @@ public class AuthService {
 
     public UserDTO login(UserDTO user){
         Optional<User> dbUser = userRepository.findByEmail(user.getEmail());
-
         if(dbUser.isPresent() && user.getPassword().equals(dbUser.get().getPassword())){
             return dbUser.get().getDto();
         }

@@ -1,36 +1,35 @@
 package com.EmployeMangement.EmployeeSystem.Service;
 
-import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
+//import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
 import com.EmployeMangement.EmployeeSystem.DAO.Repository;
+import com.EmployeMangement.EmployeeSystem.DAO.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
-    List<EmployeeEntity> employees = new ArrayList<>();
+    List<User> employees = new ArrayList<>();
 
     @Autowired
     public Repository repo;
 
     @Override
-    public String createEmployee(EmployeeEntity employee) {
+    public String createEmployee(User employee) {
         repo.save(employee);
         return "Saved Succefully";
     }
 
     @Override
-    public List<EmployeeEntity> readEmployees() {
+    public List<User> readEmployees() {
         return repo.findAll();
     }
 
     @Override
-    public EmployeeEntity getEmployeeById(Long id){
-        EmployeeEntity emp = repo.findById(id).get();
+    public User getEmployeeById(Long id){
+        User emp = (User) repo.findById(id).get();
         return emp;
     }
 
@@ -41,11 +40,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public String updateEmployee(Long id, EmployeeEntity emp) {
+    public String updateEmployee(Long id, User emp) {
 //        Optional<EmployeeEntity> optionalEmployee = repo.findById(id);
 //        EmployeeEntity employee = optionalEmployee.orElseThrow();
       try{
-          EmployeeEntity existingEmp = repo.findById(id).get();
+          User existingEmp = repo.findById(id).get();
           existingEmp.setName(emp.getName());
           existingEmp.setEmail(emp.getEmail());
           existingEmp.setPhone(emp.getPhone());

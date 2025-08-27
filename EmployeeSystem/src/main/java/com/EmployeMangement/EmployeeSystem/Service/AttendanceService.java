@@ -1,15 +1,16 @@
 package com.EmployeMangement.EmployeeSystem.Service;
 
 import com.EmployeMangement.EmployeeSystem.DAO.Attendance;
-import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
+//import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
 import com.EmployeMangement.EmployeeSystem.DAO.Repository;
+import com.EmployeMangement.EmployeeSystem.DAO.User;
 import com.EmployeMangement.EmployeeSystem.Repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
+
 @Service
 public class AttendanceService {
 
@@ -34,9 +35,8 @@ public class AttendanceService {
         attendance.setPresent(present);
 
         // Employee ko attach karna hoga (EntityManager track kare)
-        EmployeeEntity emp = new EmployeeEntity();
-        emp.setId(empId);
-        attendance.setEmployee(emp);
+        Optional<User> emp = employeeRepository.findById(empId);
+        emp.ifPresent(attendance::setEmployee);
 
         return attendanceRepository.save(attendance);
     }

@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useUserStorage from "../Stores/UserStorage";
+import { getAttendaceById } from "../Service/EmployeeService";
 
 function WelcomePage() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [EmployeeAttendance,setEmployeeAttendance] = useState([]);
+  useEffect(()=>{
+   fetchEmployeeAttendance(user.userId);
+  },[user.userId])
+
+  const fetchEmployeeAttendance=(id)=>{
+    getAttendaceById(id).then((res)=>{
+      setEmployeeAttendance(res.data);
+    })
+  }
   return (
     <div
       className="d-flex justify-content-center align-items-center"
@@ -28,7 +39,7 @@ function WelcomePage() {
                 border: "1px solid rgba(0, 123, 255, 0.3)",
               }}
             >
-              <h3 className="fw-bold text-primary">12</h3>
+              <h3 className="fw-bold text-primary">{EmployeeAttendance.length}</h3>
               <p className="text-light m-0">Attendance Days</p>
             </div>
           </div>

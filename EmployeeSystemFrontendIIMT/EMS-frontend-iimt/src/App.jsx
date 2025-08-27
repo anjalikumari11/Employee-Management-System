@@ -13,6 +13,7 @@ import Login from './Login/Login';
 import { ToastContainer } from 'react-toastify';
 import AttendanceReport from './pages/AttendanceReport';
 import EmployeeAttendance from './EmployeeFeatures/EmployeeAttendance';
+import EmployeeLeave from './EmployeeFeatures/EmployeeLeave';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Route path='/addEmployee' element={<AddEmployee />} />
           <Route path='/updateEmployee/:id' element={<AddEmployee />} />
           <Route path='/EmployeeAttendance' element={<Dashboard><EmployeeAttendance /></Dashboard>} />
-
+          <Route path='/leave' element={<Dashboard><EmployeeLeave /></Dashboard>} />
         </Routes>
       </BrowserRouter>
     </>

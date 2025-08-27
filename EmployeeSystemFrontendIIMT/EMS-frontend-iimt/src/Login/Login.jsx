@@ -82,8 +82,14 @@ function Login() {
                 </div>
 
                 {/* Right: Image */}
-                <div className="login-image d-none d-md-block">
-                    <img src={loginImg} alt="Cute" height={500} />
+                <div className="login-image d-none d-md-block" style={{
+                    backgroundImage:`url('${loginImg}')`,
+                    backgroundPosition:"center",
+                    backgroundSize:"cover"
+                }}>
+                    {/* <img src={} style={{
+                        objectFit:"cover",
+                    }} alt="Cute" height={500} /> */}
                 </div>
             </div>
         </div>
