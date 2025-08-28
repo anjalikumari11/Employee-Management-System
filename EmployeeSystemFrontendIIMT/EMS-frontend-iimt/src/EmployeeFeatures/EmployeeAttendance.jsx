@@ -88,17 +88,6 @@ function EmployeeAttendance() {
             Submit
           </button>
 
-          {/* {isalreadymark ?
-
-            <button type="submit" className="btn btn-primary btn-lg">
-              Submit
-            </button>
-            :
-            <button type="submit" disabled className="btn btn-primary btn-lg">
-              Submit
-            </button>
-          } */}
-
         </div>
       </form>
       <hr className="m-2" />

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { getAllRequest, sendRequest } from '../Service/EmployeeService';
+import { getAllRequest, getAllRequestById, sendRequest } from '../Service/EmployeeService';
 import { toast } from 'react-toastify';
 
 function EmployeeLeave() {
-    const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [message, setMessage] = useState("");
     const [leaveData, setLeaveData] = useState([]);
-    const [status, setStatus] = useState("Pending")
+    const [status, setStatus] = useState("Pending");
+ 
     const user = JSON.parse(localStorage.getItem("user"));
     const handleLeaveReq = async (e) => {
         e.preventDefault();
+        const today = new Date();
+        const localDate = today.toLocaleDateString("en-CA");
         try {
             let res = await sendRequest(
-                { employeeName: user?.name, category, message, status }
+                { employeeId: user?.userId, date:localDate, category, message, status }
             );
             toast.success("✅ Request Sent")
-            fetchEmployeeLeave();
+            fetchEmployeeLeaveById(user?.userId);
         }
         catch (e) {
             console.log(e.message);
@@ -25,12 +27,13 @@ function EmployeeLeave() {
             setMessage("");
         }
     }
+   
     useEffect(() => {
-        fetchEmployeeLeave();
-    }, [])
+        fetchEmployeeLeaveById(user?.userId);
+    }, [user?.userId])
 
-    const fetchEmployeeLeave = async () => {
-        const res = await getAllRequest();
+    const fetchEmployeeLeaveById = async (id) => {
+        const res = await getAllRequestById(id);
         setLeaveData(res.data);
 
     }
@@ -60,6 +63,7 @@ function EmployeeLeave() {
                                 disabled
                             />
                         </div>
+                        
 
                         <div className="mb-3">
                             <label className="form-label fw-bold text-light">
@@ -72,9 +76,9 @@ function EmployeeLeave() {
                                 value={category}
                             >
                                 <option value="">-- Select --</option>
-                                <option value="0">Sick Leave</option>
-                                <option value="1">Casual Leave</option>
-                                <option value="2">Earned Leave</option>
+                                <option value="Sick leave">Sick Leave</option>
+                                <option value="Casual leave">Casual Leave</option>
+                                <option value="Earned leave">Earned Leave</option>
                             </select>
                         </div>
 
@@ -101,11 +105,14 @@ function EmployeeLeave() {
                     className="bg-dark p-3 rounded shadow-sm"
                     style={{ maxHeight: "85vh" }}
                 >
-                    <h5 className="text-light mb-3">📋 Leave Requests</h5>
+                   <div className='d-flex justify-content-between'>
+                     <h5 className="text-light mb-3">📋 Leave Requests</h5>
+                    <h5 className='text-info mb-3'>Department: {user?.department}</h5>
+                   </div>
                     <table className="table table-hover table-bordered table-dark">
                         <thead className="table-secondary text-dark">
                             <tr>
-                                <th>Employee</th>
+                                <th>Message</th>
                                 <th>Category</th>
                                 <th>Date</th>
                                 <th>Status</th>
@@ -115,15 +122,20 @@ function EmployeeLeave() {
                             {leaveData.length > 0 ?
                                 (leaveData.map((data) => (
                                     <tr>
-                                        <td className="text-center text-light">{data.employeeName}</td>
-                                        <td className="text-center text-light">{data.category}</td>
                                         <td className="text-center text-light">{data.message}</td>
-                                        <td className="text-center text-light">{data.status}</td>
+                                        <td className="text-center text-light">{data.category}</td>
+                                        <td className="text-center text-light">{data.date}</td>
+                                        {data.status == "Pending" 
+                                        ?
+                                        <td className="text-center text-light "><button className='badge bg-danger border-0'>{data.status}</button></td>
+                                        :
+                                        <td className="text-center text-light"><button className='badge bg-success border-0'>{data.status}</button></td>
+                                        }
                                     </tr>
                                 )))
                                 :
                                 <tr>
-                                    <td colSpan="4" className="text-center text-muted">
+                                    <td colSpan="4" className="text-center text-light">
                                         No leave requests yet
                                     </td>
                                 </tr>

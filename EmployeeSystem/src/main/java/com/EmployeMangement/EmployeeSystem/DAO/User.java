@@ -29,6 +29,7 @@ public class User {
         dto.setName(name);
         dto.setEmail(email);
         dto.setUserRole(userRole);
+        dto.setDepartment(department);
         return dto;
     }
 

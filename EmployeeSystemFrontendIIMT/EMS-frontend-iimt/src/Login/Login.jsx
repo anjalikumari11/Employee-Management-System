@@ -13,7 +13,6 @@ function Login() {
         e.preventDefault();
         try {
             const response = await adminLogin({ email, password });
-            console.log("Login Response:", response.data);
             localStorage.setItem("user", JSON.stringify(response.data));
             navigate("/")
         } catch (error) {

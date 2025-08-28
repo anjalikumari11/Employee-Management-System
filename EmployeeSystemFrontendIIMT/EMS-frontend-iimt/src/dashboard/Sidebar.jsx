@@ -136,6 +136,16 @@ function Sidebar() {
               />
               Attendance Report
             </li>
+            <li
+              className="py-2 sidebar-item"
+              onClick={() => navigate("/manageLeave")}
+            >
+              <FontAwesomeIcon
+                icon={faClipboardUser}
+                className="me-2 text-primary"
+              />
+              Leave management
+            </li>
           </>
         )}
 

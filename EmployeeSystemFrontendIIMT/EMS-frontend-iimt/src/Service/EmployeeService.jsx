@@ -52,6 +52,31 @@ export const sendRequest=(data)=>{
     return axios.post(`${EMPLOYEE_LEAVE}/sendRequest`,data);
 }
 
+// All request
 export const getAllRequest=()=>{
     return axios.get(EMPLOYEE_LEAVE);
 }
+
+// by status :- Pending/Approved/Rejected
+export const getLeaveRequestByStatus=(status)=>{
+    return axios.get(`${EMPLOYEE_LEAVE}/status/${status}`)
+}
+
+// All request by Employee Id
+export const getAllRequestById=(EmployeeId)=>{
+    return axios.get(`${EMPLOYEE_LEAVE}/employee/${EmployeeId}`);
+}
+
+// Leave Approved or Rejected by admin
+export const approveOrReject = (data) =>{
+     return axios.put(`${EMPLOYEE_LEAVE}/approve`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+}
+
+
+
+
+

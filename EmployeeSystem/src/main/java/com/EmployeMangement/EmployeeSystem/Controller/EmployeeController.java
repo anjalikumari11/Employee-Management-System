@@ -27,7 +27,6 @@ public class EmployeeController {
 
     @PostMapping("employees")
     public String createEmployee(@RequestBody User employee) {
-        // employees.add(employee);
         return employeeService.createEmployee(employee);
     }
     @DeleteMapping("employees/{id}")
