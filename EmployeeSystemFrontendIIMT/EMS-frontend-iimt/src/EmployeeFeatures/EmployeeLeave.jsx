@@ -7,7 +7,7 @@ function EmployeeLeave() {
     const [message, setMessage] = useState("");
     const [leaveData, setLeaveData] = useState([]);
     const [status, setStatus] = useState("Pending");
- 
+
     const user = JSON.parse(localStorage.getItem("user"));
     const handleLeaveReq = async (e) => {
         e.preventDefault();
@@ -15,7 +15,7 @@ function EmployeeLeave() {
         const localDate = today.toLocaleDateString("en-CA");
         try {
             let res = await sendRequest(
-                { employeeId: user?.userId, date:localDate, category, message, status }
+                { employeeId: user?.userId, date: localDate, category, message, status }
             );
             toast.success("✅ Request Sent")
             fetchEmployeeLeaveById(user?.userId);
@@ -27,7 +27,7 @@ function EmployeeLeave() {
             setMessage("");
         }
     }
-   
+
     useEffect(() => {
         fetchEmployeeLeaveById(user?.userId);
     }, [user?.userId])
@@ -63,7 +63,7 @@ function EmployeeLeave() {
                                 disabled
                             />
                         </div>
-                        
+
 
                         <div className="mb-3">
                             <label className="form-label fw-bold text-light">
@@ -105,10 +105,10 @@ function EmployeeLeave() {
                     className="bg-dark p-3 rounded shadow-sm"
                     style={{ maxHeight: "85vh" }}
                 >
-                   <div className='d-flex justify-content-between'>
-                     <h5 className="text-light mb-3">📋 Leave Requests</h5>
-                    <h5 className='text-info mb-3'>Department: {user?.department}</h5>
-                   </div>
+                    <div className='d-flex justify-content-between'>
+                        <h5 className="text-light mb-3">📋 Leave Requests</h5>
+                        <h5 className='text-info mb-3'>Department: {user?.department}</h5>
+                    </div>
                     <table className="table table-hover table-bordered table-dark">
                         <thead className="table-secondary text-dark">
                             <tr>
@@ -125,11 +125,17 @@ function EmployeeLeave() {
                                         <td className="text-center text-light">{data.message}</td>
                                         <td className="text-center text-light">{data.category}</td>
                                         <td className="text-center text-light">{data.date}</td>
-                                        {data.status == "Pending" 
-                                        ?
-                                        <td className="text-center text-light "><button className='badge bg-danger border-0'>{data.status}</button></td>
-                                        :
-                                        <td className="text-center text-light"><button className='badge bg-success border-0'>{data.status}</button></td>
+                                        {
+                                            data.status == "Pending"
+                                                ?
+                                                <td className="text-center text-light"><button className='badge bg-warning border-0'>{data.status}</button></td>
+                                                :
+                                                (data.status == "Approved"
+                                                    ?
+                                                    <td className="text-center text-light"><button className='badge bg-success border-0'>{data.status}</button></td>
+                                                    :
+                                                    <td className="text-center text-light "><button className='badge bg-danger border-0'>{data.status}</button></td>
+                                                )
                                         }
                                     </tr>
                                 )))

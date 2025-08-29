@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faTachometerAlt,faUser,faChevronRight,faBox,faClipboardUser,faMessage,faBell,} from "@fortawesome/free-solid-svg-icons";
+import { faTachometerAlt, faUser, faChevronRight, faBox, faClipboardUser, faMessage, faBell, } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import useUserStorage from "../Stores/UserStorage";
 
 function Sidebar() {
   const navigate = useNavigate();
-  const {signOut } = useUserStorage();
+  const { signOut } = useUserStorage();
   const [userRoleFromDB, setUserRoleFromDB] = useState("");
-  
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    if(user?.userRole == "ADMIN"){
+    if (user?.userRole == "ADMIN") {
       setUserRoleFromDB("ADMIN");
     }
-    else if(user?.userRole == "MANAGER"){
+    else if (user?.userRole == "MANAGER") {
       setUserRoleFromDB("MANAGER");
     }
-    else{
+    else {
       setUserRoleFromDB("EMPLOYEE");
 
     }
-    
-  }, [user]);  
+
+  }, [user]);
 
   const handleLogout = () => {
     signOut();
@@ -33,27 +33,36 @@ function Sidebar() {
   return (
     <div
       className="d-flex flex-column shadow"
-      style={{height: "90vh",width: "240px",background: "#1e1e2f",color: "#f5f5f5",}}
+      style={{ height: "100vh", width: "240px", background: "#1e1e2f", color: "#f5f5f5", }}
     >
       <div
         className="d-flex justify-content-center align-items-center py-4"
         style={{ borderBottom: "1px solid #333" }}
+        onClick={() => {
+          if (user?.userRole === "ADMIN") {
+            navigate("/mainDashboard");
+          } else if (user?.userRole === "MANAGER") {
+            navigate("/mainDashboard");
+          } else {
+            navigate("/employeeDashboard");
+          }
+        }}
       >
         <span
           className="fw-bold px-3 py-2 text-center"
-          style={{borderRadius: "10px",width: "85%",background: "#007bff",cursor: "pointer",}}
+          style={{ borderRadius: "10px", width: "85%", background: "#007bff", cursor: "pointer", }}
         >
           <div style={{ fontSize: "12px", marginTop: "4px" }}>
             {user?.userRole}
           </div>
-          <FontAwesomeIcon icon={faTachometerAlt} className="me-2"/>
+          <FontAwesomeIcon icon={faTachometerAlt} className="me-2" />
           Dashboard
         </span>
       </div>
 
       <ul className="list-unstyled flex-grow-1 p-3">
         <li className="mb-3">
-          {user? (
+          {user ? (
             <>
               <button
                 className="btn w-100 d-flex justify-content-between align-items-center text-start text-light px-3 py-2"
@@ -145,6 +154,16 @@ function Sidebar() {
                 className="me-2 text-primary"
               />
               Leave management
+            </li>
+            <li
+              className="py-2 sidebar-item"
+              onClick={() => navigate("/manageProject")}
+            >
+              <FontAwesomeIcon
+                icon={faClipboardUser}
+                className="me-2 text-info"
+              />
+              Project
             </li>
           </>
         )}

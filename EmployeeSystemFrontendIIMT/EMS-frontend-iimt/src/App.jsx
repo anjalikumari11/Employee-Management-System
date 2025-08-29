@@ -15,6 +15,10 @@ import AttendanceReport from './pages/AttendanceReport';
 import EmployeeAttendance from './EmployeeFeatures/EmployeeAttendance';
 import EmployeeLeave from './EmployeeFeatures/EmployeeLeave';
 import LeaveManagement from './pages/LeaveManagement';
+import ProjectManagement from './pages/ProjectManagement';
+import EmployeeProject from './EmployeeFeatures/EmployeeProject';
+import MainDashboard from './pages/MainDashboard';
+import EmployeeDashboard from './EmployeeFeatures/EmployeeDashboard';
 
 function App() {
   return (
@@ -34,7 +38,14 @@ function App() {
           <Route path='/EmployeeAttendance' element={<Dashboard><EmployeeAttendance /></Dashboard>} />
           <Route path='/leave' element={<Dashboard><EmployeeLeave /></Dashboard>} />
           <Route path='/manageLeave' element={<Dashboard><LeaveManagement/></Dashboard>} />
+          <Route path='/manageProject' element={<Dashboard><ProjectManagement/></Dashboard>} />
+          <Route path='/projects' element={<Dashboard><EmployeeProject/></Dashboard>} />
+          <Route path='/mainDashboard' element={<Dashboard><MainDashboard/></Dashboard>} />
+          <Route path='/employeeDashboard' element={<Dashboard><EmployeeDashboard/></Dashboard>} />
+
+
         </Routes>
+
       </BrowserRouter>
     </>
   )

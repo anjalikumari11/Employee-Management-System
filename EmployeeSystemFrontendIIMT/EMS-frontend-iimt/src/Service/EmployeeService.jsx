@@ -3,6 +3,7 @@ const REST_API_URL = "http://localhost:8080/employees";
 const LOGIN_API_URL = "http://localhost:8080/api/auth";
 const ATTENDANCE_API_URL = "http://localhost:8080/api/attendance";
 const EMPLOYEE_LEAVE =  "http://localhost:8080/leave";
+const PROJECT_URL = "http://localhost:8080/Project";
 
 export const listEmployees = () => {
     return axios.get(REST_API_URL);
@@ -76,7 +77,19 @@ export const approveOrReject = (data) =>{
     });
 }
 
+// project management
+export const getListOfProject=()=>{
+    return axios.get(PROJECT_URL);
+}
 
+export const getListOfProjectByStatus=(status)=>{
+    return axios.get(`${PROJECT_URL}/status/${status}`);
+}
 
+export const getListOfProjectByEmployeeId=(id)=>{
+    return axios.get(`${PROJECT_URL}/employee/${id}`);
+}
 
-
+export const updateProjectStatus=(status)=>{
+    return axios.put(`${PROJECT_URL}/status`,status);
+}

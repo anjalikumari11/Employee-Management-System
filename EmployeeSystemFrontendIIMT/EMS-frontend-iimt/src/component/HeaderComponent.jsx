@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faSignOutAlt, faBell } from "@fortawesome/free-solid-svg-icons";
 import useUserStorage from "../Stores/UserStorage"; // if you store user
 import { useNavigate } from "react-router-dom";
 
@@ -14,12 +14,15 @@ function HeaderComponent() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-3"z >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-3" z >
       <div className="container-fluid">
         <a className="navbar-brand fw-bold text-info" href="#">
           Employee<span className="text-light">MS</span>
         </a>
         <div className="d-flex align-items-center ms-auto">
+          <div className="d-flex align-items-center">
+            <FontAwesomeIcon icon={faBell} className="me-3 text-warning" size={22} />
+          </div>
           {user ? (
             <div className="d-flex align-items-center">
               <FontAwesomeIcon
