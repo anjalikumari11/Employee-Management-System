@@ -13,4 +13,5 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity,Long> {
     List<ProjectEntity> findByStatus(String status);
     List<ProjectEntity> findByEmployees_id(Long employeeId);
     Optional<ProjectEntity> findByEmployees_idAndId(Long employeeId, Long projectId);
+
 }

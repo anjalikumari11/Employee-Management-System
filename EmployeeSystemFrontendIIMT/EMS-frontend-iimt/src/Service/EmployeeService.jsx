@@ -91,5 +91,13 @@ export const getListOfProjectByEmployeeId=(id)=>{
 }
 
 export const updateProjectStatus=(status)=>{
-    return axios.put(`${PROJECT_URL}/status`,status);
+    return axios.put(`${PROJECT_URL}/status`,status,{
+         headers: {
+            "Content-Type": "application/json"
+        }
+    });
+}
+
+export const getListOfEmpByProjectId=(id)=>{
+    return axios.get(`${PROJECT_URL}/${id}/employees`);
 }

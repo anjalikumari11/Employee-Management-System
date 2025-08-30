@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { getListOfProject } from '../Service/EmployeeService';
+import { getListOfEmpByProjectId, getListOfProject } from '../Service/EmployeeService';
 
 function ProjectManagement() {
   const [projectData, setProjectData] = useState([]);
+  const [employeeDetail,setEmployeeDetail] = useState([]);
 
   useEffect(() => {
-    fetchprojectList();
+    fetchProjectList();
   }, []);
 
-  const fetchprojectList = async () => {
+  const fetchProjectList = async () => {
     try {
       let res = await getListOfProject();
       setProjectData(res.data);
@@ -16,6 +17,16 @@ function ProjectManagement() {
       console.log(e.message);
     }
   };
+  const fetchEmpDetail = async (id)=>{
+    try{
+      let res = await getListOfEmpByProjectId(id);
+      setEmployeeDetail(res.data);
+    }catch(e){
+      console.log(e.message);
+      
+    }
+  }
+
 
   return (
     <div className="container p-4">
@@ -35,11 +46,13 @@ function ProjectManagement() {
         </thead>
         <tbody>
           {projectData.map((project) =>
-            project.employees.length > 0 ? (
-              project.employees.map((emp) => (
-                <tr key={`${project.id}-${emp.id}`}>
-                  <td>{emp.id}</td>
-                  <td>{emp.name}</td>
+           
+             (
+                <tr key={`${project.id}`}>
+                  {/* <td>{emp.id}</td>
+                  <td>{emp.name}</td> */}
+                  <td></td>
+                  <td></td>
                   <td>{project.name}</td>
                   <td>{project.startDate}</td>
                   <td>{project.endDate}</td>
@@ -50,21 +63,7 @@ function ProjectManagement() {
                     <button className="badge bg-danger border-0">Delete</button>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr key={project.id}>
-                <td colSpan="2">No Employee Assigned</td>
-                <td>{project.name}</td>
-                <td>{project.startDate}</td>
-                <td>{project.endDate}</td>
-                <td>{project.status}</td>
-                <td className="d-flex gap-2">
-                  <button className="badge bg-success border-0">Approved</button>
-                  <button className="badge bg-warning border-0">Update</button>
-                  <button className="badge bg-danger border-0">Delete</button>
-                </td>
-              </tr>
-            )
+              )
           )}
         </tbody>
       </table>

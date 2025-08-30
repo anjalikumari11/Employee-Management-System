@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +79,7 @@ public class ProjectService {
       List<ProjectEntity> projects = projectRepository.findByEmployees_id(empId);
         return projects.stream().map(project -> {
             ProjectDTO dto = new ProjectDTO();
+            dto.setId(project.getId());
             dto.setName(project.getName());
             dto.setDescription(project.getDescription());
             dto.setStartDate(project.getStartDate());
@@ -109,5 +111,12 @@ public class ProjectService {
         }
     }
 
+//  emp find by id
+   public Set<User> findEmpPerProject(Long projectId) {
+    ProjectEntity project = projectRepository.findById(projectId)
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+
+    return project.getEmployees();
+    }
 
 }
