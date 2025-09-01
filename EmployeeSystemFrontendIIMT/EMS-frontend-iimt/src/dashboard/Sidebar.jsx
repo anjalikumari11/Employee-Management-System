@@ -154,6 +154,16 @@ function Sidebar() {
                 />
                 Project
               </li>
+               <li
+                className="py-2 sidebar-item"
+                onClick={() => navigate("/manageSalary")}
+              >
+                <FontAwesomeIcon
+                  icon={faClipboardUser}
+                  className="me-2 text-success"
+                />
+                Salary
+              </li>
             </>
           )}
 

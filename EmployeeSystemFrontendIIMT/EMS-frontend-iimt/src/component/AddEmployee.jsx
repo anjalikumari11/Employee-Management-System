@@ -30,7 +30,7 @@ function AddEmployee() {
             name, email, phone, department
         }).then((response) => {
             setLoading(false);
-            navigate("/")
+            navigate("/EmployeeList")
         })
     }
 

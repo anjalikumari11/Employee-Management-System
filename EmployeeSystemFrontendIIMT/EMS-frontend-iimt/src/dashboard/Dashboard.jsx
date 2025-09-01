@@ -6,7 +6,7 @@ function Dashboard({ children }) {
   return (
    <>
     <HeaderComponent/>
-    <div className="container-fluid">
+    <div className="container-fluid mt-5">
       <div className="row border">
         <div className="col-lg-2 p-0">
           <Sidebar />
