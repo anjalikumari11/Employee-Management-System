@@ -1,0 +1,110 @@
+.sidebar {
+  height: 100vh;
+  width: 240px;
+  background: #1e1e2f;
+  color: #f5f5f5;
+  transition: all 0.3s ease-in-out;
+  position: fixed;
+  top: 10;
+  left: 0;
+  z-index: 1050;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+.sidebar-dashboard {
+  border-radius: 10px;
+  width: 85%;
+  background: #007bff;
+  cursor: pointer;
+}
+.role-text {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.sidebar-item {
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.user-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 15px;
+}
+.username {
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #333;
+  font-size: 12px;
+}
+
+.hamburger {
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 22px;
+  position: fixed;
+  top: 1px;
+  z-index: 1100;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1049;
+  display: none;
+}
+.sidebar-overlay.show {
+  display: block;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 240px;
+    left: -240px;
+  }
+  .sidebar.mobile-show {
+    left: 0;
+  }
+  .sidebar.mobile-hidden {
+    left: -240px;
+  }
+  .sidebar .username,
+  .sidebar .sidebar-dashboard,
+  .sidebar .role-text {
+    display: none;
+  }
+  .sidebar .sidebar-item {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    left: -240px;
+  }
+  .sidebar.mobile-show {
+    left: 0;
+  }
+  .sidebar.mobile-hidden {
+    left: -240px;
+  }
+}

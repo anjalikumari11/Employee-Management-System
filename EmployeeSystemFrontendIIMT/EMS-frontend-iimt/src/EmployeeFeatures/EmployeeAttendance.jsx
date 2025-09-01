@@ -13,7 +13,6 @@ function EmployeeAttendance() {
     const localDate = today.toLocaleDateString("en-CA");
     setDate(localDate);
   }, []);
-  console.log(date);
 
 
   const handleAttendance = async (e) => {

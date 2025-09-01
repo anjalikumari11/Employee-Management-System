@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAllRequest, getAllRequestById, sendRequest } from '../Service/EmployeeService';
 import { toast } from 'react-toastify';
+import "./EmployeeFeature.css"
 
 function EmployeeLeave() {
     const [category, setCategory] = useState("");
@@ -42,12 +43,12 @@ function EmployeeLeave() {
 
     return (
         <>
-            <div className="d-flex justify-content-around gap-3 p-3 rounded shadow-sm"
+            <div className="leaveManagement d-flex justify-content-around gap-3 rounded shadow-sm"
                 style={{ minHeight: "100vh" }}>
-                <div className="mt-3 mx-4" style={{ width: "360px" }}>
+                <div className="mt-2" style={{ width: "360px" }}>
                     <h3 className="">📝 Apply for Leave</h3>
                     <form
-                        className="p-4 border rounded shadow-sm"
+                        className="p-4 border rounded shadow-sm "
                         style={{ backgroundColor: "#454849", color: "white" }}
                         onSubmit={handleLeaveReq}
                     >
@@ -102,52 +103,54 @@ function EmployeeLeave() {
 
 
                 <div
-                    className="bg-dark p-3 rounded shadow-sm"
+                    className="bg-dark p-3 rounded shadow-sm mt-3"
                     style={{ maxHeight: "85vh" }}
                 >
                     <div className='d-flex justify-content-between'>
                         <h5 className="text-light mb-3">📋 Leave Requests</h5>
                         <h5 className='text-info mb-3'>Department: {user?.department}</h5>
                     </div>
-                    <table className="table table-hover table-bordered table-dark">
-                        <thead className="table-secondary text-dark">
-                            <tr>
-                                <th>Message</th>
-                                <th>Category</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {leaveData.length > 0 ?
-                                (leaveData.map((data) => (
-                                    <tr>
-                                        <td className="text-center text-light">{data.message}</td>
-                                        <td className="text-center text-light">{data.category}</td>
-                                        <td className="text-center text-light">{data.date}</td>
-                                        {
-                                            data.status == "Pending"
-                                                ?
-                                                <td className="text-center text-light"><button className='badge bg-warning border-0'>{data.status}</button></td>
-                                                :
-                                                (data.status == "Approved"
-                                                    ?
-                                                    <td className="text-center text-light"><button className='badge bg-success border-0'>{data.status}</button></td>
-                                                    :
-                                                    <td className="text-center text-light "><button className='badge bg-danger border-0'>{data.status}</button></td>
-                                                )
-                                        }
-                                    </tr>
-                                )))
-                                :
+                    <div className='table-responsive'>
+                        <table className="table table-hover table-bordered table-dark">
+                            <thead className="table-secondary text-dark">
                                 <tr>
-                                    <td colSpan="4" className="text-center text-light">
-                                        No leave requests yet
-                                    </td>
+                                    <th>Message</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {leaveData.length > 0 ?
+                                    (leaveData.map((data) => (
+                                        <tr>
+                                            <td className="text-center text-light">{data.message}</td>
+                                            <td className="text-center text-light">{data.category}</td>
+                                            <td className="text-center text-light">{data.date}</td>
+                                            {
+                                                data.status == "Pending"
+                                                    ?
+                                                    <td className="text-center text-light"><button className='badge bg-warning border-0'>{data.status}</button></td>
+                                                    :
+                                                    (data.status == "Approved"
+                                                        ?
+                                                        <td className="text-center text-light"><button className='badge bg-success border-0'>{data.status}</button></td>
+                                                        :
+                                                        <td className="text-center text-light "><button className='badge bg-danger border-0'>{data.status}</button></td>
+                                                    )
+                                            }
+                                        </tr>
+                                    )))
+                                    :
+                                    <tr>
+                                        <td colSpan="4" className="text-center text-light">
+                                            No leave requests yet
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>

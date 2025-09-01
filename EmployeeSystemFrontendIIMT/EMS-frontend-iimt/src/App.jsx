@@ -21,12 +21,18 @@ import MainDashboard from './pages/MainDashboard';
 import EmployeeDashboard from './EmployeeFeatures/EmployeeDashboard';
 
 function App() {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <>
       <BrowserRouter>
         <ToastContainer position="top-right" autoClose={2000} />
         <Routes>
-          <Route path='/' element={<Dashboard />} />
+          {user?.userRole == "ADMIN" ?
+            <Route path='/' element={<Dashboard><MainDashboard /></Dashboard>} />
+            :
+            <Route path='/' element={<Dashboard><EmployeeDashboard /></Dashboard>} />
+
+          }
           <Route path='/employee' element={<Dashboard />} />
           <Route path='/adminLogin' element={<Login />} />
           <Route path='/EmployeeList' element={<EmployeeList />} />
@@ -37,11 +43,11 @@ function App() {
           <Route path='/updateEmployee/:id' element={<AddEmployee />} />
           <Route path='/EmployeeAttendance' element={<Dashboard><EmployeeAttendance /></Dashboard>} />
           <Route path='/leave' element={<Dashboard><EmployeeLeave /></Dashboard>} />
-          <Route path='/manageLeave' element={<Dashboard><LeaveManagement/></Dashboard>} />
-          <Route path='/manageProject' element={<Dashboard><ProjectManagement/></Dashboard>} />
-          <Route path='/projects' element={<Dashboard><EmployeeProject/></Dashboard>} />
-          <Route path='/mainDashboard' element={<Dashboard><MainDashboard/></Dashboard>} />
-          <Route path='/employeeDashboard' element={<Dashboard><EmployeeDashboard/></Dashboard>} />
+          <Route path='/manageLeave' element={<Dashboard><LeaveManagement /></Dashboard>} />
+          <Route path='/manageProject' element={<Dashboard><ProjectManagement /></Dashboard>} />
+          <Route path='/projects' element={<Dashboard><EmployeeProject /></Dashboard>} />
+          <Route path='/mainDashboard' element={<Dashboard><MainDashboard /></Dashboard>} />
+          <Route path='/employeeDashboard' element={<Dashboard><EmployeeDashboard /></Dashboard>} />
 
 
         </Routes>

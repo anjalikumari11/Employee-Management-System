@@ -53,5 +53,15 @@ public class ProjectController {
         return projectService.findEmpPerProject(projectId);
     }
 
+    @DeleteMapping("delete/{id}")
+    public boolean deleteProject(@PathVariable Long id){
+        return projectService.deleteProj(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProjectEntity updateProjectById(@PathVariable Long id, @RequestBody ProjectEntity projectEntity){
+        return projectService.updateProject(id,projectEntity);
+    }
+
 }
 

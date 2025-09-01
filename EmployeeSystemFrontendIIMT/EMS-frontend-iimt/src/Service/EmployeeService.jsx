@@ -9,6 +9,10 @@ export const listEmployees = () => {
     return axios.get(REST_API_URL);
 }
 
+export const EmpListByUserRole=(userRole)=>{
+    return axios.get(`http://localhost:8080/userRole/${userRole}`)
+}
+
 export const getEmployeeById = (id) => {
     return axios.get(`${REST_API_URL}/${id}`);
 }
@@ -34,7 +38,6 @@ export const adminLogin = (data)=>{
 export const getAttendance = ()=>{
     return axios.get(ATTENDANCE_API_URL);
 }
-
 
 export const markAttendance = (attendance) =>
   axios.post(ATTENDANCE_API_URL, attendance);
@@ -100,4 +103,16 @@ export const updateProjectStatus=(status)=>{
 
 export const getListOfEmpByProjectId=(id)=>{
     return axios.get(`${PROJECT_URL}/${id}/employees`);
+}
+
+export const addProjectandAssign = (data) =>{
+    return axios.post(PROJECT_URL,data);
+}
+
+export const deleteProject = (id) =>{
+    return axios.delete(`${PROJECT_URL}/delete/${id}`);
+}
+
+export const updateProject = (id,updatedProjec)=>{
+    return axios.put(`${PROJECT_URL}/${id}`,updatedProjec);
 }

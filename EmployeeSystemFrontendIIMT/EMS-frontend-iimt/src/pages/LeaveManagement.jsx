@@ -16,7 +16,6 @@ function LeaveManagement() {
             const res = await getLeaveRequestByStatus(status);
             setData(res.data);
 
-            // fetch department for each employee
             res.data.forEach(leavedata => {
                 fetchDepartmentByEmpId(leavedata.employeeId);
             });
@@ -55,6 +54,7 @@ function LeaveManagement() {
 
     return (
         <div className='container m-3'>
+            <h3>Leave Dashboard</h3>
             <div className="row text-center">
                 <div className="col-md-4 mb-3">
                     <div className="d-flex gap-2 align-items-center p-2 rounded-3 shadow-sm bg-warning">
@@ -91,7 +91,7 @@ function LeaveManagement() {
                 </select>
             </div>
 
-            <div className='mt-5'>
+            <div className='table-responsive mt-3'>
                 <table className="table table-bordered table-striped">
                     <thead className="table-dark">
                         <tr>

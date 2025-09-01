@@ -3,11 +3,14 @@ package com.EmployeMangement.EmployeeSystem.Service;
 //import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
 import com.EmployeMangement.EmployeeSystem.DAO.Repository;
 import com.EmployeMangement.EmployeeSystem.DAO.User;
+import com.EmployeMangement.EmployeeSystem.EnumConstant.UserRole;
+import com.EmployeMangement.EmployeeSystem.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -34,6 +37,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<UserDTO> findByuserRole(UserRole userRole) {
+        List<User> users = repo.findByUserRole(userRole);
+        return users.stream().map(user -> {
+            UserDTO dto = new UserDTO();
+            dto.setUserId(user.getId());
+            dto.setEmail(user.getEmail());
+            dto.setPassword("");
+            dto.setName(user.getName());
+            dto.setUserRole(user.getUserRole());
+            dto.setDepartment(user.getDepartment());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public boolean deleteEmployee(Long id) {
         repo.deleteById(id);
         return true;
@@ -56,5 +74,6 @@ public class EmployeeServiceImpl implements EmployeeService {
           return e.getMessage();
       }
     }
+
 
 }

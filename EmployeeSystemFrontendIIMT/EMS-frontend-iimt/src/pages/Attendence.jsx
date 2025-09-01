@@ -26,7 +26,7 @@ function Attendance() {
 
     loadMarkedAttendance(selectedDate);
   }, [selectedDate]);
-  
+
   const loadMarkedAttendance = (date) => {
     getAttendance()
       .then((res) => {
@@ -68,7 +68,7 @@ function Attendance() {
 
     if (successCount > 0) {
       toast.success(`✅ Attendance marked for ${successCount} employees`);
-      loadMarkedAttendance(selectedDate); 
+      loadMarkedAttendance(selectedDate);
     }
     if (failCount > 0) toast.error(`❌ Failed for ${failCount} employees`);
   };
@@ -77,87 +77,89 @@ function Attendance() {
     <Dashboard>
       <div className="container p-4">
         <h2 className="mb-4 text-primary">➡️Mark Attendance</h2>
-        <div className="mb-3">
-          <label className="form-label fw-bold">Select Date:</label>
-          <input
-            type="date"
-            className="form-control w-25"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
+        <div className="row mb-2">
+          <div className="col-12 col-md-6 col-lg-3">
+            <input
+              type="date"
+              className="form-control"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </div>
         </div>
+        <div className="table-responsive">
+          <table className="table table-bordered table-striped">
+            <thead className="table-dark">
+              <tr>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map((emp) => {
+                const alreadyMarked = markedRecords.includes(emp.id);
 
-        <table className="table table-bordered table-striped">
-          <thead className="table-dark">
-            <tr>
-              <th>Employee Name</th>
-              <th>Department</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((emp) => {
-              const alreadyMarked = markedRecords.includes(emp.id);
-
-              return (
-                <tr key={emp.id}>
-                  <td>{emp.name}</td>
-                  <td>{emp.department}</td>
-                  <td>
-                    {alreadyMarked ? (
-                      <span className="badge bg-success">Already Marked</span>
-                    ) : (
-                      <select
-                        className="form-select"
-                        value={
-                          attendanceData.find((a) => a.employeeId === emp.id)?.present
-                            ? "true"
-                            : "false"
-                        }
-                        onChange={(e) =>
-                          handleStatusChange(emp.id, e.target.value === "true")
-                        }
-                      >
-                        <option value="true">Present</option>
-                        <option value="false">Absent</option>
-                      </select>
-                    )}
-                  </td>
-                  <td>
-                    {alreadyMarked ? (
-                      <button className="btn btn-secondary btn-sm" disabled>
-                        ✅ Marked
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() =>
-                          markAttendance({
-                            employee: { id: emp.id },
-                            date: selectedDate,
-                            present:
-                              attendanceData.find((a) => a.employeeId === emp.id)
-                                ?.present ?? true,
-                          })
-                            .then(() => {
-                              toast.success(`✅ Attendance marked for ${emp.name}`);
-                              setMarkedRecords((prev) => [...prev, emp.id]);
+                return (
+                  <tr key={emp.id}>
+                    <td>{emp.name}</td>
+                    <td>{emp.department}</td>
+                    <td>
+                      {alreadyMarked ? (
+                        <span className="badge bg-success">Already Marked</span>
+                      ) : (
+                        <select
+                          className="form-select"
+                          value={
+                            attendanceData.find((a) => a.employeeId === emp.id)?.present
+                              ? "true"
+                              : "false"
+                          }
+                          onChange={(e) =>
+                            handleStatusChange(emp.id, e.target.value === "true")
+                          }
+                        >
+                          <option value="true">Present</option>
+                          <option value="false">Absent</option>
+                        </select>
+                      )}
+                    </td>
+                    <td>
+                      {alreadyMarked ? (
+                        <button className="btn btn-secondary btn-sm" disabled>
+                          ✅ Marked
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() =>
+                            markAttendance({
+                              employee: { id: emp.id },
+                              date: selectedDate,
+                              present:
+                                attendanceData.find((a) => a.employeeId === emp.id)
+                                  ?.present ?? true,
                             })
-                            .catch(() => {
-                              toast.error(`❌ Failed for ${emp.name}`);
-                            })
-                        }
-                      >
-                        Mark
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                              .then(() => {
+                                toast.success(`✅ Attendance marked for ${emp.name}`);
+                                setMarkedRecords((prev) => [...prev, emp.id]);
+                              })
+                              .catch(() => {
+                                toast.error(`❌ Failed for ${emp.name}`);
+                              })
+                          }
+                        >
+                          Mark
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
         <button
           className="btn btn-success mt-3"

@@ -2,6 +2,8 @@ package com.EmployeMangement.EmployeeSystem.Service;
 
 //import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
 import com.EmployeMangement.EmployeeSystem.DAO.User;
+import com.EmployeMangement.EmployeeSystem.EnumConstant.UserRole;
+import com.EmployeMangement.EmployeeSystem.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,4 +14,5 @@ public interface EmployeeService {
     boolean deleteEmployee(Long id);
     String updateEmployee(Long id, User emp);
     User getEmployeeById(Long id);
+    List<UserDTO> findByuserRole(UserRole userRole);
 }

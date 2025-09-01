@@ -34,7 +34,7 @@ function EmployeeProject() {
 
       const res = await updateProjectStatus(statusData);
       toast.success(res.data);
-      fetchProjectData(user.userId); 
+      fetchProjectData(user.userId);
     } catch (err) {
       console.error("Error updating status:", err.response?.data || err.message);
       toast.error("Failed to update status");
@@ -47,8 +47,9 @@ function EmployeeProject() {
   const pendingCount = EmpProjectData.filter((p) => p.status === "PENDING").length;
 
   return (
-    <div className="container m-3">
-      <div className="row mb-4">
+    <div className="container-fluid mx-2">
+      <h2 className="mt-2">🎗️ Projects</h2>
+      <div className="row my-4">
         <div className="col-md-3 mb-3">
           <div className="card text-white shadow border-0" style={{ background: "#007bff" }}>
             <div className="card-body text-center">
@@ -89,53 +90,56 @@ function EmployeeProject() {
 
       <div className="px-3" style={{ height: "90vh" }}>
         <hr className="m-2" />
-        <table className="table table-hover table-bordered m-2">
-          <thead className="table-secondary">
-            <tr>
-              <th>Project name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {EmpProjectData.map((project) => (
-              <tr key={project.projectId}>
-                <td>{project.name}</td>
-                <td>{project.startDate}</td>
-                <td>{project.endDate}</td>
-                <td>
-                  {project.status === "COMPLETE" ? (
-                    <span className="badge bg-success border-0">{project.status}</span>
-                  ) : project.status === "ACTIVE" ? (
-                    <span className="badge bg-primary border-0">{project.status}</span>
-                  ) : (
-                    <span className="badge bg-warning border-0">{project.status}</span>
-                  )}
-                </td>
-                <td>
-                  {project.status === "COMPLETE" ? (
-                    <button className="badge bg-success border-0">Updated</button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="badge bg-warning border-0"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      onClick={() => {
-                        setSelectedProjectId(project.id);
-                        setStatus(project.status);
-                      }}
-                    >
-                      Update
-                    </button>
-                  )}
-                </td>
+        <div className="table-responsive">
+          <table className="table table-hover table-bordered m-2">
+            <thead className="table-secondary">
+              <tr>
+                <th>Project name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {EmpProjectData.map((project) => (
+                <tr key={project.projectId}>
+                  <td>{project.name}</td>
+                  <td>{project.startDate}</td>
+                  <td>{project.endDate}</td>
+                  <td>
+                    {project.status === "COMPLETE" ? (
+                      <span className="badge bg-success border-0">{project.status}</span>
+                    ) : project.status === "ACTIVE" ? (
+                      <span className="badge bg-primary border-0">{project.status}</span>
+                    ) : (
+                      <span className="badge bg-warning border-0">{project.status}</span>
+                    )}
+                  </td>
+                  <td>
+                    {project.status === "COMPLETE" ? (
+                      <button className="badge bg-success border-0">Updated</button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="badge bg-warning border-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={() => {
+                          setSelectedProjectId(project.id);
+                          setStatus(project.status);
+                        }}
+                      >
+                        Update
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
 
         <div
           className="modal fade"

@@ -2,7 +2,9 @@ package com.EmployeMangement.EmployeeSystem.Controller;
 
 //import com.EmployeMangement.EmployeeSystem.DAO.EmployeeEntity;
 import com.EmployeMangement.EmployeeSystem.DAO.User;
+import com.EmployeMangement.EmployeeSystem.EnumConstant.UserRole;
 import com.EmployeMangement.EmployeeSystem.Service.EmployeeService;
+import com.EmployeMangement.EmployeeSystem.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +38,11 @@ public class EmployeeController {
     @PutMapping("employees/{id}")
     public String updateEmp(@PathVariable Long id, @RequestBody User emp){
         return employeeService.updateEmployee(id,emp);
+    }
+
+    @GetMapping("userRole/{userRole}")
+    public List<UserDTO> findEmpByuserRole(@PathVariable UserRole userRole){
+        return employeeService.findByuserRole(userRole);
     }
 
 }

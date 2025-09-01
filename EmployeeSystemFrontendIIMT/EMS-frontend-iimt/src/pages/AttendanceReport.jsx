@@ -49,40 +49,45 @@ function AttendanceReport() {
         {error && <p className="text-danger">{error}</p>}
 
         {!loading && !error && (
-          <table className="table table-hover table-bordered">
-            <thead className="table-secondary">
-              <tr>
-                <th>Employee</th>
-                <th>Department</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {records.length > 0 ? (
-                records.map((rec, index) => (
-                  <tr key={index}>
-                    <td>{rec.employee?.name || "N/A"}</td>
-                    <td>{rec.employee?.department || "N/A"}</td>
-                    <td>{new Date(rec.date).toLocaleDateString()}</td>
-                    <td>
-                      {rec.present ? (
-                        <span className="badge bg-success">Present</span>
-                      ) : (
-                        <span className="badge bg-danger">Absent</span>
-                      )}
+
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered align-middle">
+              <thead className="table-secondary text-center">
+                <tr>
+                  <th scope="col">Employee</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {records.length > 0 ? (
+                  records.map((rec, index) => (
+                    <tr key={index}>
+                      <td>{rec.employee?.name || "N/A"}</td>
+                      <td>{rec.employee?.department || "N/A"}</td>
+                      <td>{new Date(rec.date).toLocaleDateString()}</td>
+                      <td>
+                        {rec.present ? (
+                          <span className="badge bg-success">Present</span>
+                        ) : (
+                          <span className="badge bg-danger">Absent</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="text-center">
+                      No attendance records found for {selectedDate}
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4" className="text-center">
-                    No attendance records found for {selectedDate}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+
         )}
       </div>
     </Dashboard>

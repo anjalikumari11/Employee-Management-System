@@ -36,10 +36,12 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+//    getall project
     public List<ProjectDTO> getAllProjects() {
         List<ProjectEntity> projects = projectRepository.findAll();
         return projects.stream().map(project -> {
             ProjectDTO dto = new ProjectDTO();
+            dto.setId(project.getId());
             dto.setName(project.getName());
             dto.setDescription(project.getDescription());
             dto.setStartDate(project.getStartDate());
@@ -56,6 +58,7 @@ public class ProjectService {
         }).collect(Collectors.toList());
     }
 
+//    get by status
     public List<ProjectDTO> getListByStatus(String status){
         List<ProjectEntity> projects = projectRepository.findByStatus(status);
         return projects.stream().map(project -> {
@@ -75,6 +78,7 @@ public class ProjectService {
         }).collect(Collectors.toList());
     }
 
+//    getlist by empid
     public List<ProjectDTO> getListByEmpId(Long empId){
       List<ProjectEntity> projects = projectRepository.findByEmployees_id(empId);
         return projects.stream().map(project -> {
@@ -95,6 +99,7 @@ public class ProjectService {
         }).collect(Collectors.toList());
     }
 
+//    change status
     public String changeStatus(Long empId,Long projectID,String status){
         try {
             ProjectEntity project = projectRepository
@@ -115,8 +120,29 @@ public class ProjectService {
    public Set<User> findEmpPerProject(Long projectId) {
     ProjectEntity project = projectRepository.findById(projectId)
             .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
-
     return project.getEmployees();
     }
+
+//    delete by project id
+    public boolean deleteProj(Long id){
+        projectRepository.deleteById(id);
+        return true;
+    }
+
+//    update project
+public ProjectEntity updateProject(Long id, ProjectEntity projectEntity) {
+    ProjectEntity existingEntity = projectRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+
+    existingEntity.setName(projectEntity.getName());
+    existingEntity.setDescription(projectEntity.getDescription());
+    existingEntity.setStatus(projectEntity.getStatus());
+    existingEntity.setStartDate(projectEntity.getStartDate());
+    existingEntity.setEndDate(projectEntity.getEndDate());
+    existingEntity.setEmployees(projectEntity.getEmployees());
+
+    return projectRepository.save(existingEntity);
+}
+
 
 }
