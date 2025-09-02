@@ -36,7 +36,6 @@ function HeaderComponent() {
 
         <div className="collapse navbar-collapse" id="navbarContent">
           <div className="ms-auto d-flex align-items-center mt-2 mt-lg-0">
-            <FontAwesomeIcon icon={faBell} className="me-3 text-warning" size="lg" />
 
             {user ? (
               <div className="d-flex align-items-center flex-wrap">

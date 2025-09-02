@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { getAllRequest, getAllRequestById, sendRequest } from '../Service/EmployeeService';
 import { toast } from 'react-toastify';
 import "./EmployeeFeature.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 function EmployeeLeave() {
     const [category, setCategory] = useState("");
@@ -36,7 +38,6 @@ function EmployeeLeave() {
     const fetchEmployeeLeaveById = async (id) => {
         const res = await getAllRequestById(id);
         setLeaveData(res.data);
-
     }
     console.log(leaveData);
 
@@ -46,7 +47,7 @@ function EmployeeLeave() {
             <div className="leaveManagement d-flex justify-content-around gap-3 rounded shadow-sm"
                 style={{ minHeight: "100vh" }}>
                 <div className="mt-2" style={{ width: "360px" }}>
-                    <h3 className="">📝 Apply for Leave</h3>
+                    <h3 className=""> <FontAwesomeIcon icon={faLeaf} color='orange' /> Apply for Leave</h3>
                     <form
                         className="p-4 border rounded shadow-sm "
                         style={{ backgroundColor: "#454849", color: "white" }}

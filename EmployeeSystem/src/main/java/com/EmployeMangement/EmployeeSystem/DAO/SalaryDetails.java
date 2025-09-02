@@ -26,4 +26,5 @@ public class SalaryDetails {
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp created_at;
+
 }

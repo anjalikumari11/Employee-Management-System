@@ -1,132 +1,119 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   LineChart, Line, CartesianGrid, PieChart, Pie, Cell, Legend
 } from "recharts";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { getAllRequestById, getAttendaceById, getListOfProjectByEmployeeId } from "../Service/EmployeeService";
 
 const EmployeeDashboard = () => {
-  
-  const projectData = [
-    { name: "Project A", employees: 8, progress: 60 },
-    { name: "Project B", employees: 12, progress: 85 },
-    { name: "Project C", employees: 5, progress: 40 },
-    { name: "Project D", employees: 10, progress: 75 },
-  ];
+  const [EmpProjectData, setEmpProjectData] = useState([]);
+  const [empAttendance, setEmpAttendance] = useState([]);
+  const [empLeave, setEmpLeave] = useState([]);
 
-  const statusData = [
-    { name: "Completed", value: 8 },
-    { name: "Ongoing", value: 5 },
-    { name: "Pending", value: 3 },
-  ];
+  const user = JSON.parse(localStorage.getItem("user"));
+  const totalProjects = EmpProjectData.length;
+  const totalAttendance = empAttendance.length;
+  const totalLeave = empLeave.length;
 
-  const COLORS = ["#28a745", "#007bff", "#ffc107"];
+  useEffect(() => {
+    if (user?.userId) {
+      fetchProjectData(user.userId);
+      fetchEmployeeLeaveById(user.userId);
+      fetchAttendance(user.userId);
+    }
+  }, [user?.userId]);
+
+  const fetchProjectData = async (id) => {
+    try {
+      let res = await getListOfProjectByEmployeeId(id);
+      setEmpProjectData(res.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const fetchAttendance = (id) => {
+    getAttendaceById(id).then((res) => setEmpAttendance(res.data));
+  };
+
+  const fetchEmployeeLeaveById = async (id) => {
+    const res = await getAllRequestById(id);
+    setEmpLeave(res.data);
+  };
 
   return (
     <div className="container-fluid bg-light min-vh-100 p-4">
-      <h2 className="fw-bold mb-4 text-center">Employee Project Dashboard</h2>
+      <h2 className="fw-bold mb-4 text-center">{user.name} Dashboard</h2>
 
-      {/* Summary Cards */}
       <div className="row mb-4">
         <div className="col-md-3 mb-3">
           <div className="card shadow border-0">
             <div className="card-body text-center">
-              <h6 className="text-muted">Total Employees</h6>
-              <h3 className="fw-bold text-primary">35</h3>
+              <h6 className="text-muted">Total Projects</h6>
+              <h3 className="fw-bold text-primary">{totalProjects}</h3>
             </div>
           </div>
         </div>
         <div className="col-md-3 mb-3">
           <div className="card shadow border-0">
             <div className="card-body text-center">
-              <h6 className="text-muted">Active Projects</h6>
-              <h3 className="fw-bold text-success">12</h3>
+              <h6 className="text-muted">Total Attendance</h6>
+              <h3 className="fw-bold text-success">{totalAttendance}</h3>
             </div>
           </div>
         </div>
         <div className="col-md-3 mb-3">
           <div className="card shadow border-0">
             <div className="card-body text-center">
-              <h6 className="text-muted">Completed</h6>
-              <h3 className="fw-bold text-info">8</h3>
+              <h6 className="text-muted">Total Leave</h6>
+              <h3 className="fw-bold text-info">{totalLeave}</h3>
             </div>
           </div>
         </div>
         <div className="col-md-3 mb-3">
           <div className="card shadow border-0">
             <div className="card-body text-center">
-              <h6 className="text-muted">Pending</h6>
-              <h3 className="fw-bold text-warning">5</h3>
+              <h6 className="text-muted">Performance</h6>
+              <h3 className="fw-bold text-success">
+                {EmpProjectData.length > 0
+                  ? Math.round(
+                    EmpProjectData.reduce((acc, p) => acc + (p.progress || 0), 0) / EmpProjectData.length
+                  ) + "%"
+                  : "0%"}
+              </h3>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Charts Section */}
-      <div className="row">
-        {/* Bar Chart */}
-        <div className="col-lg-6 mb-4">
-          <div className="card shadow border-0">
-            <div className="card-header bg-white fw-bold">Employees per Project</div>
-            <div className="card-body" style={{ height: "300px" }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={projectData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="employees" fill="#007bff" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
-        {/* Line Chart */}
-        <div className="col-lg-6 mb-4">
-          <div className="card shadow border-0">
-            <div className="card-header bg-white fw-bold">Project Progress</div>
-            <div className="card-body" style={{ height: "300px" }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={projectData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="progress" stroke="#28a745" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+      <div className="row mb-4">
+        <h6>Employee Details</h6>
+        <div className="table-responsive">
+          <table className="table table-hover table-bordered m-2">
+        <thead className="table-secondary">
+          <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{user.userId}</td>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td>{user.department}</td>
+            <td>{user.userRole}</td>
+          </tr>
+         
+        </tbody>
+      </table>
         </div>
       </div>
 
-      {/* Pie Chart */}
-      <div className="row">
-        <div className="col-lg-6 mb-4">
-          <div className="card shadow border-0">
-            <div className="card-header bg-white fw-bold">Project Status Distribution</div>
-            <div className="card-body d-flex justify-content-center" style={{ height: "300px" }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={statusData}
-                    dataKey="value"
-                    nameKey="name"
-                    outerRadius={100}
-                    label
-                  >
-                    {statusData.map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Legend />
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };

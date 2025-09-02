@@ -21,6 +21,7 @@ import MainDashboard from './pages/MainDashboard';
 import EmployeeDashboard from './EmployeeFeatures/EmployeeDashboard';
 import SalaryManagement from './pages/SalaryManagement';
 import EmployeeSalary from './EmployeeFeatures/EmployeeSalary';
+import EmployeeHelpDesk from './EmployeeFeatures/EmployeeHelpDesk';
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -52,8 +53,7 @@ function App() {
           <Route path='/mainDashboard' element={<Dashboard><MainDashboard /></Dashboard>} />
           <Route path='/employeeDashboard' element={<Dashboard><EmployeeDashboard /></Dashboard>} />
           <Route path='/salary' element={<Dashboard><EmployeeSalary /></Dashboard>} />
-
-
+          <Route path='/help' element={<Dashboard><EmployeeHelpDesk /></Dashboard>} />
 
         </Routes>
 

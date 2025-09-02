@@ -5,6 +5,7 @@ const ATTENDANCE_API_URL = "http://localhost:8080/api/attendance";
 const EMPLOYEE_LEAVE = "http://localhost:8080/leave";
 const PROJECT_URL = "http://localhost:8080/Project";
 const SALARY_API = "http://localhost:8080/salary";
+const SALARY_SLIP_API ="http://localhost:8080/salary-slip";
 
 export const listEmployees = () => {
     return axios.get(REST_API_URL);
@@ -131,3 +132,24 @@ export const getSalaryList = () => {
 export const getSalaryByEmpId=(id)=>{
     return axios.get(`${SALARY_API}/${id}`);
 }
+
+// salary-slip 
+
+export const downloadSalarySlip = async (salaryId) => {
+  try {
+    const response = await axios.get(`${SALARY_SLIP_API}/${salaryId}/download`, {
+      responseType: 'blob', 
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `salary-slip-${salaryId}.pdf`); 
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+  } catch (error) {
+    console.error("Error downloading salary slip:", error);
+  }
+};
